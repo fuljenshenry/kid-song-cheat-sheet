@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A Suno workflow guide for making children's show songs: slider settings, style-box recipe, and lyric rules.">
+<title>The Kid-Song Cheat Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#FCFAF5;
+  --panel:#FFFFFF;
+  --sunk:#F4F0E5;
+  --ink:#17233C;
+  --ink-soft:#5C6478;
+  --rule:#E4DDCC;
+  --rule-soft:#EFEADD;
+  --marigold:#DE930A;
+  --tomato:#D9452F;
+  --teal:#0F7F72;
+  --grape:#6544A6;
+  --code-bg:#F3EEE1;
+  --code-ink:#22304C;
+  --shadow:0 1px 2px rgba(23,35,60,.06), 0 6px 18px rgba(23,35,60,.05);
+
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Nunito Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111A2B;
+    --panel:#18233A;
+    --sunk:#1D2941;
+    --ink:#EEF1F7;
+    --ink-soft:#9BA6BD;
+    --rule:#2C3852;
+    --rule-soft:#232F49;
+    --marigold:#F6B739;
+    --tomato:#FF7A66;
+    --teal:#35B7A6;
+    --grape:#A38BE0;
+    --code-bg:#0D1626;
+    --code-ink:#DCE3F0;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111A2B;
+  --panel:#18233A;
+  --sunk:#1D2941;
+  --ink:#EEF1F7;
+  --ink-soft:#9BA6BD;
+  --rule:#2C3852;
+  --rule-soft:#232F49;
+  --marigold:#F6B739;
+  --tomato:#FF7A66;
+  --teal:#35B7A6;
+  --grape:#A38BE0;
+  --code-bg:#0D1626;
+  --code-ink:#DCE3F0;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{max-width:920px;margin:0 auto;padding:38px 22px 80px}
+
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+a{color:var(--teal)}
+
+/* ---- xylophone rule: the recurring structural device ---- */
+.bars{display:flex;gap:4px;height:7px}
+.bars i{display:block;border-radius:2px}
+.bars i:nth-child(1){width:42px;background:var(--tomato)}
+.bars i:nth-child(2){width:30px;background:var(--marigold)}
+.bars i:nth-child(3){width:22px;background:var(--teal)}
+.bars i:nth-child(4){width:14px;background:var(--grape)}
+
+/* ---- masthead ---- */
+.masthead{display:flex;flex-direction:column;gap:16px;padding-bottom:26px;border-bottom:2px solid var(--rule)}
+.masthead h1{font-size:clamp(2.1rem,6vw,3.1rem);font-weight:700;letter-spacing:-.015em}
+.dek{font-size:1.05rem;color:var(--ink-soft);max-width:60ch}
+.dek strong{color:var(--ink);font-weight:700}
+
+section{margin-top:44px}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+}
+.sec-head h2{font-size:1.62rem}
+.lede{max-width:66ch;color:var(--ink-soft);margin-top:2px}
+
+/* ---- steps (a real sequence) ---- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.step{
+  background:var(--panel);border:1px solid var(--rule);border-radius:10px;
+  padding:16px 16px 18px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:7px;
+}
+.step .num{
+  font-family:var(--mono);font-size:.75rem;font-weight:600;color:var(--tomato);
+  letter-spacing:.08em;
+}
+.step h3{font-size:1.02rem}
+.step p{font-size:.92rem;color:var(--ink-soft)}
+
+/* ---- sliders: the centrepiece ---- */
+.sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.slider{
+  background:var(--panel);border:1px solid var(--rule);border-radius:12px;
+  padding:18px 18px 20px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:10px;
+}
+.slider-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.slider-head .s-name{font-family:var(--display);font-weight:600;font-size:1.08rem}
+.slider-head .s-val{
+  font-family:var(--mono);font-weight:600;font-size:1.32rem;
+  font-variant-numeric:tabular-nums;color:var(--tomato);
+}
+.slider.s-teal .s-val{color:var(--teal)}
+.slider.s-grape .s-val{color:var(--grape)}
+.track{position:relative;height:9px;border-radius:5px;background:var(--sunk);border:1px solid var(--rule-soft)}
+.fill{position:absolute;inset:0 auto 0 0;border-radius:5px;background:var(--tomato)}
+.s-teal .fill{background:var(--teal)}
+.s-grape .fill{background:var(--grape)}
+.thumb{
+  position:absolute;top:50%;width:19px;height:19px;border-radius:50%;
+  transform:translate(-50%,-50%);background:var(--panel);
+  border:3px solid var(--tomato);
+}
+.s-teal .thumb{border-color:var(--teal)}
+.s-grape .thumb{border-color:var(--grape)}
+.scale{
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.slider p{font-size:.9rem;color:var(--ink-soft)}
+.slider .why{color:var(--ink);font-weight:600;font-size:.9rem}
+
+.callout{
+  margin-top:18px;border-left:4px solid var(--marigold);
+  background:var(--sunk);border-radius:0 8px 8px 0;
+  padding:14px 18px;font-size:.96rem;
+}
+.callout strong{font-family:var(--display);font-weight:600}
+
+/* ---- paste blocks ---- */
+.paste{margin-top:16px;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--panel)}
+.paste-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:9px 14px;background:var(--sunk);border-bottom:1px solid var(--rule);
+}
+.paste-label{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.copy{
+  font-family:var(--body);font-size:.78rem;font-weight:700;cursor:pointer;
+  background:var(--panel);color:var(--ink);border:1px solid var(--rule);
+  border-radius:999px;padding:4px 13px;
+}
+.copy:hover{border-color:var(--teal);color:var(--teal)}
+.copy:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+pre{
+  margin:0;padding:14px;background:var(--code-bg);color:var(--code-ink);
+  font-family:var(--mono);font-size:.845rem;line-height:1.62;
+  white-space:pre-wrap;word-break:break-word;overflow-x:auto;
+}
+pre.lyric{white-space:pre-wrap}
+code{font-family:var(--mono);font-size:.86em;background:var(--code-bg);color:var(--code-ink);padding:1px 5px;border-radius:4px}
+
+/* ---- rules list ---- */
+.rules{display:flex;flex-direction:column;gap:0;margin-top:6px;border-top:1px solid var(--rule-soft)}
+.rule{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+.rule .r-n{font-family:var(--mono);font-size:.95rem;font-weight:600;color:var(--marigold);padding-top:2px}
+.rule h4{font-size:1rem;margin-bottom:3px}
+.rule p{font-size:.93rem;color:var(--ink-soft);max-width:62ch}
+
+/* ---- tables ---- */
+.table-wrap{overflow-x:auto;margin-top:8px;border:1px solid var(--rule);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.93rem}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+thead th{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);background:var(--sunk);border-bottom:1px solid var(--rule);font-weight:600;
+}
+tbody tr:last-child td{border-bottom:none}
+td.fix{font-weight:600}
+td .set{font-family:var(--mono);font-size:.86em;color:var(--tomato);font-weight:600;white-space:nowrap}
+
+/* ---- tag chips ---- */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chip{
+  font-family:var(--mono);font-size:.8rem;padding:4px 10px;border-radius:6px;
+  background:var(--sunk);border:1px solid var(--rule);color:var(--ink);
+}
+
+/* ---- two-up jobs ---- */
+.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.job{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 20px 20px;box-shadow:var(--shadow)}
+.job h3{font-size:1.1rem;margin-bottom:4px}
+.job .who{font-family:var(--mono);font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;display:block}
+.job ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:7px;font-size:.93rem}
+.job.kid h3{color:var(--tomato)}
+.job.adult h3{color:var(--teal)}
+.job.both h3{color:var(--grape)}
+
+/* ---- checklist ---- */
+.check{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.check label{
+  display:flex;gap:11px;align-items:flex-start;padding:10px 12px;border-radius:8px;
+  border:1px solid var(--rule-soft);background:var(--panel);cursor:pointer;font-size:.95rem;
+}
+.check input{margin:4px 0 0;width:17px;height:17px;accent-color:var(--teal);flex:none}
+.check label:hover{border-color:var(--rule)}
+
+footer{
+  margin-top:52px;padding-top:20px;border-top:2px solid var(--rule);
+  display:flex;flex-direction:column;gap:12px;
+  font-size:.88rem;color:var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+@media print{
+  :root{--paper:#fff;--panel:#fff;--sunk:#F4F1E8;--ink:#111;--ink-soft:#444;--shadow:none}
+  .sheet{max-width:none;padding:0}
+  .copy{display:none}
+  section,.step,.slider,.job,.paste{break-inside:avoid}
+  h2{break-after:avoid}
+}
+</style>
+<style>
+  html{color-scheme:light dark}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="bars"><i></i><i></i><i></i><i></i></div>
+    <h1>The Kid-Song Cheat Sheet</h1>
+    <p class="dek">Everything you need to get a good children's song out of Suno on the first or second try — the exact <strong>slider numbers</strong>, a fill-in-the-blank style box, and how to write words a five-year-old can sing back. Made to be worked through by a grown-up and a kid together.</p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Start here</span>
+      <h2>Four steps, every single song</h2>
+      <p class="lede">Do them in this order. Most bad songs come from skipping straight to "press Create and hope."</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">STEP 1</span>
+        <h3>Pick one idea</h3>
+        <p>One song teaches one thing. Sharing. Counting to five. Putting toys away. Not all three.</p>
+      </div>
+      <div class="step">
+        <span class="num">STEP 2</span>
+        <h3>Write the chorus first</h3>
+        <p>The chorus is the part kids remember. Write it before anything else, then build verses that lead into it.</p>
+      </div>
+      <div class="step">
+        <span class="num">STEP 3</span>
+        <h3>Fill the style box</h3>
+        <p>Use the recipe below. Describe the <em>sound</em> — never name a real show or singer.</p>
+      </div>
+      <div class="step">
+        <span class="num">STEP 4</span>
+        <h3>Set sliders, then create</h3>
+        <p>Weirdness low, Style high. Listen to both takes all the way through before deciding.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">Advanced options</span>
+      <h2>The three sliders</h2>
+      <p class="lede">Open <strong>Advanced Options</strong> in Custom mode to find these. Kids' songs want the opposite of what a cool adult song wants: <em>predictable, clean, and singable</em>. That means low Weirdness and high Style.</p>
+    </div>
+
+    <div class="sliders">
+      <div class="slider">
+        <div class="slider-head"><span class="s-name">Weirdness</span><span class="s-val">15</span></div>
+        <div class="track"><div class="fill" style="width:15%"></div><div class="thumb" style="left:15%"></div></div>
+        <div class="scale"><span>Safe</span><span>Chaos</span></div>
+        <p class="why">How much Suno is allowed to surprise you.</p>
+        <p>Keep it low. A surprise key change or a sudden rap verse ruins a sing-along. If something shows up that you never asked for, drop this to 5–10.</p>
+      </div>
+
+      <div class="slider s-teal">
+        <div class="slider-head"><span class="s-name">Style Influence</span><span class="s-val">80</span></div>
+        <div class="track"><div class="fill" style="width:80%"></div><div class="thumb" style="left:80%"></div></div>
+        <div class="scale"><span>Loose</span><span>Strong</span></div>
+        <p class="why">How hard Suno obeys your style box.</p>
+        <p>Keep it high. This is what stops your ukulele song from turning into a pop record. If the song comes out sounding like grown-up radio music, raise this — do <em>not</em> raise Weirdness.</p>
+      </div>
+
+      <div class="slider s-grape">
+        <div class="slider-head"><span class="s-name">Audio Influence</span><span class="s-val">85</span></div>
+        <div class="track"><div class="fill" style="width:85%"></div><div class="thumb" style="left:85%"></div></div>
+        <div class="scale"><span>Free</span><span>Locked</span></div>
+        <p class="why">Only appears when you upload or cover audio.</p>
+        <p>Ignore it unless you're reusing a backing track — like putting new words on your show's theme music. Then set it high to keep the original music, or drop to 75 if the singing sounds stiff.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>The one rule that saves the most time:</strong> change one slider at a time. If you move two and it gets better, you've learned nothing about which one did it — and next week you'll be guessing all over again.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">Style box</span>
+      <h2>The fill-in-the-blank recipe</h2>
+      <p class="lede">Seven parts, separated by the <code>|</code> character, always in this order. Suno pays most attention to what comes first, so the kind of song goes at the front and the "don'ts" go at the end.</p>
+    </div>
+
+    <div class="paste">
+      <div class="paste-head"><span class="paste-label">The template</span><button class="copy" type="button">Copy</button></div>
+<pre>what kind of song, for young children | how fast + how it feels | 3–5 instruments | who is singing | the mood | how it should be recorded | what to avoid</pre>
+    </div>
+
+    <p class="lede" style="margin-top:22px">Three that are ready to paste. Change the instruments and you have a whole new song.</p>
+
+    <div class="paste">
+      <div class="paste-head"><span class="paste-label">Learning / counting song</span><button class="copy" type="button">Copy</button></div>
+<pre>cheerful children's counting song | bright and bouncy, around 100 BPM, easy to clap along to | ukulele, glockenspiel, upright piano, hand claps, shaker | warm friendly grown-up voice with a small children's chorus answering back | happy, playful, patient | clean and simple, every single word easy to hear | no rock guitar, no heavy drums, no synth bass, no sad chords</pre>
+    </div>
+
+    <div class="paste">
+      <div class="paste-head"><span class="paste-label">Silly high-energy song</span><button class="copy" type="button">Copy</button></div>
+<pre>silly children's dance song | fast and goofy, around 128 BPM, stompy and bouncy | tuba, kazoo, marching snare, cowbell, tambourine, honky-tonk piano | excited grown-up voice with a whole classroom of kids shouting back | funny, wild, joyful | live and a little messy like a school band, everything up front | no serious singing, no ballad, no sad chords, no long held notes</pre>
+    </div>
+
+    <div class="paste">
+      <div class="paste-head"><span class="paste-label">Calm goodbye / naptime song</span><button class="copy" type="button">Copy</button></div>
+<pre>gentle children's lullaby | slow and soft, around 70 BPM, gently rocking | nylon string guitar, soft glockenspiel, brushed drums, warm upright bass | one calm grown-up voice singing close and quiet | sleepy, safe, kind | very simple, lots of space, nothing loud or sudden | no big drums, no horns, no key change, no crescendo</pre>
+    </div>
+
+    <div class="callout">
+      <strong>Never name a real show, singer, or character.</strong> Suno blocks it, and even when it slips through it doesn't work. "Sounds like a famous puppet show" gets you nothing; "ukulele, glockenspiel, hand claps, warm grown-up voice with kids answering" gets you the actual sound you were picturing.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">Lyrics</span>
+      <h2>Five rules for words kids can sing</h2>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <span class="r-n">01</span>
+        <div>
+          <h4>Short lines — four to seven words</h4>
+          <p>A kid sings back what fits in one breath. Long flowing lines physically can't be delivered like short punchy ones, so the length of the line controls the whole feel of the song. This does more work than anything you write in the style box.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="r-n">02</span>
+        <div>
+          <h4>Put the lesson in the chorus</h4>
+          <p>Whatever you want them to remember goes in the part that repeats. If the lesson only shows up in verse two, it isn't in the song.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="r-n">03</span>
+        <div>
+          <h4>Repeat the chorus almost word-for-word</h4>
+          <p>Change one word at most between choruses. Getting creative on the repeat is the fastest way to make a song nobody can sing along to.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="r-n">04</span>
+        <div>
+          <h4>Leave a hole for them to answer</h4>
+          <p>Call and response is the whole trick of a kids' show. Write the answer in parentheses — Suno reads it as a second voice coming back at you.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="r-n">05</span>
+        <div>
+          <h4>Use blank lines to make it breathe</h4>
+          <p>Empty lines tell Suno to leave space. Without them it crams everything into one rushed breath. Two lines, blank line, two lines is a reliable shape.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top:26px">Section tags go on their own line, in square brackets. These are the ones worth using:</p>
+    <div class="chips">
+      <span class="chip">[Instrumental Intro]</span>
+      <span class="chip">[Verse 1]</span>
+      <span class="chip">[Chorus]</span>
+      <span class="chip">[Verse 2]</span>
+      <span class="chip">[Bridge]</span>
+      <span class="chip">[Instrumental Break]</span>
+      <span class="chip">[Outro]</span>
+      <span class="chip">[Kids' Choir]</span>
+    </div>
+    <p class="lede" style="margin-top:14px">You can also give one section its own direction: <code>[Chorus: kids shout the numbers back]</code>. That changes only that section, without touching the style box.</p>
+
+    <div class="paste">
+      <div class="paste-head"><span class="paste-label">A complete example — swap the objects for your own</span><button class="copy" type="button">Copy</button></div>
+<pre class="lyric">[Instrumental Intro]
+
+[Verse 1]
+I found a shiny button on the floor
+Then I found another by the door
+
+Help me pick them up and count with me
+Counting is more fun when there are three!
+
+[Chorus]
+One! (One!)
+Two! (Two!)
+Three! (Three!)
+Four! (Four!)
+Five little buttons on the floor!
+
+One, two, three, four, five —
+Now let's count them one more time!
+
+[Verse 2]
+I found a yellow pencil on my chair
+Then I found another over there
+
+Hold them up and count them nice and slow
+Are you ready? Here we go!
+
+[Chorus]
+One! (One!)
+Two! (Two!)
+Three! (Three!)
+Four! (Four!)
+Five little pencils on the floor!
+
+One, two, three, four, five —
+Now let's count them one more time!
+
+[Instrumental Break]
+
+[Outro]
+Five! We found five!
+Great counting, everybody!</pre>
+    </div>
+
+    <div class="callout">
+      <strong>Two traps worth knowing before they bite you.</strong> Anything you write in the intro can come back and repeat all song long — so only put your hook up there, never a one-time line like "here we go." And if the words start too early, put <code>[Instrumental Intro]</code> at the very top with nothing written under it.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">The voice</span>
+      <h2>Give Suno a situation, not adjectives</h2>
+      <p class="lede">This is the single biggest thing we learned, and it transfers straight over to children's music. Adjectives produce a generic voice. A <em>situation</em> produces a performance, because Suno has something to act.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:44%">Weak — describes a texture</th><th>Strong — describes a situation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>warm, friendly, kid-friendly voice</td>
+            <td class="fix">singing to twenty five-year-olds sitting on a carpet three feet away, not performing on a stage</td>
+          </tr>
+          <tr>
+            <td>excited, energetic delivery</td>
+            <td class="fix">getting a whole room of kids up off the floor and moving</td>
+          </tr>
+          <tr>
+            <td>soft, gentle, soothing</td>
+            <td class="fix">singing quietly to one child who is nearly asleep</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="border-left-color:var(--teal)">
+      <strong>Then lock it with a Persona.</strong> As soon as one take genuinely sounds like your show's host, save it as a Persona and use it on every song after that. Written descriptions drift a little every time; Personas hold. If the show has more than one character who sings, build one Persona per character — and build each from the most energetic take you have, so that calmer songs read as the character holding back.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">Troubleshooting</span>
+      <h2>When it comes out wrong</h2>
+      <p class="lede">Find the symptom, make one change, generate again.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:46%">What happened</th><th>What to change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sounds like a grown-up pop song</td><td class="fix">Raise <span class="set">Style → 85</span>. Not Weirdness.</td></tr>
+          <tr><td>Something appeared you never asked for — a rap, a sad breakdown, a key change</td><td class="fix">Drop <span class="set">Weirdness → 5–10</span></td></tr>
+          <tr><td>Technically correct but lifeless and stiff</td><td class="fix"><span class="set">Style 75 / Weirdness 25</span></td></tr>
+          <tr><td>Can't understand the words</td><td class="fix">Shorten your lines. Add <em>clear diction, every word easy to understand</em> to the style box.</td></tr>
+          <tr><td>Singer sounds too grown-up or too breathy</td><td class="fix">Replace the adjectives with a situation (see above)</td></tr>
+          <tr><td>Words start before the music gets going</td><td class="fix">Empty <code>[Instrumental Intro]</code> at the top</td></tr>
+          <tr><td>One line keeps coming back over and over</td><td class="fix">It's in the intro block. Move it, or make it the hook on purpose.</td></tr>
+          <tr><td>Your uploaded backing track drifted</td><td class="fix">Raise <span class="set">Audio → 95</span></td></tr>
+          <tr><td>Singing sounds trapped on the wrong notes</td><td class="fix">Lower <span class="set">Audio → 75</span></td></tr>
+          <tr><td>Song is too long / loses them</td><td class="fix">Cut a verse. Two verses and three choruses is plenty.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">Working together</span>
+      <h2>Who does what</h2>
+    </div>
+    <div class="jobs">
+      <div class="job kid">
+        <h3>The kid</h3>
+        <span class="who">Creative director</span>
+        <ul>
+          <li>Picks what the song is about</li>
+          <li>Writes the chorus — the part everybody sings</li>
+          <li>Decides which of the two takes is better, and says why</li>
+          <li>Names the song</li>
+          <li>Tests it: can you sing it back after hearing it twice? If not, it isn't done.</li>
+        </ul>
+      </div>
+      <div class="job adult">
+        <h3>The grown-up</h3>
+        <span class="who">Engineer</span>
+        <ul>
+          <li>Fills the style box and sets the sliders</li>
+          <li>Changes only one thing between tries</li>
+          <li>Downloads the keeper <em>before</em> making any changes to it</li>
+          <li>Saves and manages the Personas</li>
+          <li>Keeps a note of which style box made each good song</li>
+        </ul>
+      </div>
+      <div class="job both">
+        <h3>Both</h3>
+        <span class="who">Every time</span>
+        <ul>
+          <li>Listen to both takes all the way to the end before choosing</li>
+          <li>Be willing to throw one out — the next generation is thirty seconds away</li>
+          <li>Say out loud what was wrong with it before changing anything</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="bars"><i></i><i></i><i></i><i></i></div>
+      <span class="eyebrow">Last look</span>
+      <h2>Before you press Create</h2>
+    </div>
+    <div class="check">
+      <label><input type="checkbox"> The song is about <strong>one</strong> thing</label>
+      <label><input type="checkbox"> Every line is short enough to sing in one breath</label>
+      <label><input type="checkbox"> The chorus repeats almost word-for-word</label>
+      <label><input type="checkbox"> There's a part where the kids answer back</label>
+      <label><input type="checkbox"> The style box ends with a few "no" words</label>
+      <label><input type="checkbox"> Weirdness is low, Style is high</label>
+      <label><input type="checkbox"> Only one thing changed since the last try</label>
+    </div>
+  </section>
+
+  <footer>
+    <div class="bars"><i></i><i></i><i></i><i></i></div>
+    <p>Slider numbers are starting points, not laws — they come from a lot of generations and they'll get better once you keep your own notes. The habit that matters more than any number on this page: <strong>write down the style box that made a song you loved.</strong> In a month you will not remember it.</p>
+  </footer>
+
+</div>
+
+<script>
+document.querySelectorAll(".copy").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var block = btn.closest(".paste").querySelector("pre");
+    var text = block.innerText;
+    var done = function(){
+      var old = btn.textContent;
+      btn.textContent = "Copied";
+      setTimeout(function(){ btn.textContent = old; }, 1400);
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function(){ selectFallback(block, btn); });
+      } else {
+        selectFallback(block, btn);
+      }
+    } catch (e) {
+      selectFallback(block, btn);
+    }
+  });
+});
+function selectFallback(block, btn){
+  try {
+    var range = document.createRange();
+    range.selectNodeContents(block);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    btn.textContent = ok ? "Copied" : "Selected — press Ctrl/Cmd+C";
+    setTimeout(function(){ btn.textContent = "Copy"; }, 2200);
+  } catch (e) {
+    btn.textContent = "Select the text";
+    setTimeout(function(){ btn.textContent = "Copy"; }, 2200);
+  }
+}
+</script>
+</body>
+</html>
